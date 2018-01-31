@@ -1,0 +1,29 @@
+package com.ottodock.db;
+
+import com.ottodock.core.DockMetric;
+import org.jdbi.v3.sqlobject.config.RegisterBeanMapper;
+import org.jdbi.v3.sqlobject.statement.SqlQuery;
+import org.jdbi.v3.sqlobject.statement.SqlUpdate;
+
+import java.util.List;
+
+@RegisterBeanMapper(DockMetric.class)
+
+public interface DockMetricDao {
+
+
+    @SqlQuery("SELECT * FROM dock_metrics where dock_id = ?")
+    List<DockMetric> listDockMetricsFor(int dockId);
+
+    @SqlUpdate("insert into dock_metrics (dock_id, north, east, down, temp) values (?, ?)")
+    void insert(long id, String name);
+//    dock_metric (
+//            dock_id       INTEGER NOT NULL,
+//            north         FLOAT NOT NULL,
+//            east          FLOAT NOT NULL,
+//            down          FLOAT NOT NULL,
+//            temperature    FLOAT NOT NULL,
+//            wind_speed    FLOAT NOT NULL,
+//            measurementTS TIMESTAMP,
+
+}
