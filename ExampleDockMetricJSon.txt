@@ -1,6 +1,7 @@
-# Here is an example JSON metric entry
-# suitable for POSTING to /api/docks/metrics using
-#  Need to be sure to set HTTP RequestHeader 'Content-Type' to 'application/json'
+# Below in {} is an example JSON metric entry
+# suitable for POSTING to http:localhost:8080/api/docks/metrics
+# Need to be sure to set HTTP RequestHeader 'Content-Type' to 'application/json'
+#############
 
 {
     "dockId": "1",
@@ -12,7 +13,7 @@
 }
 
 ############
-## The above JSON easly maps to the object fields below
+## The above JSON easily maps to the object fields below, and then to the DB.
 ## To override with your own timestamp .... think need to setup handling formatting
 
    private int dockId;
