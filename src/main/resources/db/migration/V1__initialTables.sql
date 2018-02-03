@@ -23,7 +23,7 @@ CREATE TABLE dock_metric (
    down          FLOAT NOT NULL,
    temperature   FLOAT NOT NULL,
    wind_speed    FLOAT NOT NULL,
-   measurementTS TIMESTAMP,
+   measurementTS TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
    createdTS     TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 

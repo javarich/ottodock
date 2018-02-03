@@ -7,6 +7,8 @@ import com.ottodock.db.DockMetricDao;
 import com.sun.org.apache.xpath.internal.operations.Minus;
 import org.slf4j.LoggerFactory;
 
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -29,15 +31,17 @@ public class DockMetricsResource {
     @GET
     @Timed
     @Produces(MediaType.APPLICATION_JSON)
-    public List<DockMetric> getDockMetrics(@QueryParam("dockId") int dockId) {
+    public List<DockMetric> getDockMetrics(@DefaultValue("0") @QueryParam("dockId") int dockId) {
         log.info("Getting metrics for dockId = {}", dockId);
         return dao.listDockMetricsFor(dockId);
     }
 
     @POST
     @Timed
-    @Produces(MediaType.APPLICATION_JSON)
-    public int insertMetric() {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public int insertMetric(DockMetric dockMetric) {
+        log.info("Inserting a dock measurement {}", dockMetric);
+        dao.insert(dockMetric);
         return 0;
     }
 

@@ -1,0 +1,24 @@
+# Here is an example JSON metric entry
+# suitable for POSTING to /api/docks/metrics using
+#  Need to be sure to set HTTP RequestHeader 'Content-Type' to 'application/json'
+
+{
+    "dockId": "1",
+    "north": "23.234238",
+    "east":  "56.544234",
+    "down":  "14.893721",
+    "temperature":  "14.893721",
+    "windSpeed": "14.893721"
+}
+
+############
+## The above JSON easly maps to the object fields below
+## To override with your own timestamp .... think need to setup handling formatting
+
+   private int dockId;
+    private double north;
+    private double east;
+    private double down;
+    private float temperature;
+    private float windspeed;
+    private Instant metricTs = Instant.now();

@@ -1,13 +1,112 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
     <title>OttoDock</title>
 </head>
 <body>
-<h2>Welcome to OttoDock</h2>
+<h2 class="text-center">Welcome to OttoDock</h2>
 
-<div>To Do: Make something nice / meaningful here
+<div class="container">
+    <div class="card card-body bg-light">
+        <div class="text-center">View and Insert Dock Metrics (measurements</div>
+        <!--<form id="dockMetric-form" class="form-vertical" role="form" autocomplete="off">-->
+            <fieldset>
+                <div class="form-group col-xs-12 col-sm-6">
+                    <label for="dockMetric">Dock metric to Add</label>
+                    <textarea class="form-control" id="dockMetric" rows="8" required>{
+    "dockId": "1",
+    "north": "23.234238",
+    "east":  "56.544234",
+    "down":  "14.893721",
+    "temperature":  "14.893721",
+    "windSpeed": "14.893721"
+}
+                    </textarea>
+                </div>
+                <div class="form-group col-xs-12 col-sm-4 offset-sm-1">
+                    <button class="btn btn-primary" onclick="addMetric();">Add Metric</button>
+                </div>
+
+            </fieldset>
+        <hr>
+        <fieldset>
+            <div class="form-group col-xs-12 col-sm-6">
+               <label for="dockId" class="control-label">Get Metrics for DockId</label>
+               <input type="text" class="form-control" name="dockId" id="dockId" placeholder="Dock Id">
+            </div>
+            <div class="form-group col-xs-12 col-sm-4 offset-sm-1">
+                <button class="btn btn-primary" onclick="getMetricsForDockId();">Get Metrics</button>
+            </div>
+        </fieldset>
+        <!--</form>-->
+    </div>
 </div>
+
+<div class="container" style="margin-bottom: 3em">
+    <div class="well col-xs-12">
+        <div class="control-label col-xs-12">
+            <label>Data sent:</label>
+        </div>
+        <div class="col-xs-12">
+            <textarea class="form-control" readonly id="dataSent" rows="10">here: data sent...</textarea>
+            <br>
+        </div>
+        <div class="control-label col-xs-12">
+            <label>Result:</label>
+        </div>
+        <div class="col-xs-12">
+            <textarea class="form-control" readonly id="results" rows="10">Waiting to send request</textarea>
+        </div>
+    </div>
+</div>
+
+<script>
+    function addMetric() {
+        var metric = $("#dockMetric").val();
+        console.log("Sending metric to server " + metric);
+        $.ajax({
+            type: "POST",
+            url: "/api/docks/metrics/",
+            data: metric,
+            success: function(){ alert("Success, Metric Added")},
+            dataType: "json",
+            contentType : "application/json; charset=UTF-8"
+        });
+        $("#dataSent").text(metric);
+        return false;
+    }
+
+    function getMetricsForDockId() {
+        var dockId = $("#dockId").val();
+        console.log("Query metrics for dockId " + dockId);
+        $.getJSON({
+            type: "GET",
+            url: "/api/docks/metrics?dockId=" + dockId,
+            success: displayJsonResult
+        });
+        return false;
+    }
+
+    function displayJsonResult( data, status, xhr ){
+        console.log("Results status " + status);
+        $("#results").text(JSON.stringify(data));
+
+    }
+</script>
+
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
+
+
+

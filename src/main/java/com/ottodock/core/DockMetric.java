@@ -1,15 +1,18 @@
 package com.ottodock.core;
 
+import java.sql.Timestamp;
 import java.time.Instant;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class DockMetric {
     private int dockId;
     private double north;
     private double east;
     private double down;
-    private float temp;
-    private float windspeed;
-    private Instant metricTs;
+    private float temperature;
+    private float windSpeed;
+    private Timestamp metricTs = Timestamp.from(Instant.now());
 
     public int getDockId() {
         return dockId;
@@ -43,27 +46,28 @@ public class DockMetric {
         this.down = down;
     }
 
-    public float getTemp() {
-        return temp;
+    public float getTemperature() {
+        return temperature;
     }
 
-    public void setTemp(float temp) {
-        this.temp = temp;
+    public void setTemperature(float temperature) {
+        this.temperature = temperature;
     }
 
-    public float getWindspeed() {
-        return windspeed;
+    public float getWindSpeed() {
+        return windSpeed;
     }
 
-    public void setWindspeed(float windspeed) {
-        this.windspeed = windspeed;
+    public void setWindSpeed(float windspeed) {
+        this.windSpeed = windspeed;
     }
 
-    public Instant getMetricTs() {
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd hh:mm:ss")
+    public Timestamp getMetricTs() {
         return metricTs;
     }
 
-    public void setMetricTs(Instant metricTs) {
+    public void setMetricTs(Timestamp metricTs) {
         this.metricTs = metricTs;
     }
 

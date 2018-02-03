@@ -1,7 +1,9 @@
 package com.ottodock;
 
+import com.ottodock.db.DockMetricDao;
 import com.ottodock.db.UserDao;
 import com.ottodock.health.DbHealthCheck;
+import com.ottodock.resources.DockMetricsResource;
 import com.ottodock.resources.UserResource;
 import io.dropwizard.Application;
 import io.dropwizard.jdbi.bundles.DBIExceptionsBundle;
@@ -39,11 +41,19 @@ public class OttoDockApplication extends Application<OttoDockConfiguration> {
         final Jdbi jdbi = Jdbi.create(configuration.getDataSourceFactory().build(environment.metrics(),"dockDb"));
         jdbi.installPlugin(new PostgresPlugin());
         jdbi.installPlugin(new SqlObjectPlugin());
-        final UserDao userDao = jdbi.onDemand(UserDao.class);
 
+        // Users Setup
+        final UserDao userDao = jdbi.onDemand(UserDao.class);
         final UserResource userResource = new UserResource(userDao);
         environment.jersey().register(userResource);
 
+        // DockMetric Setup
+        final DockMetricDao dockMetricDao = jdbi.onDemand(DockMetricDao.class);
+        final DockMetricsResource dockMetricsResource = new DockMetricsResource(dockMetricDao);
+        environment.jersey().register(dockMetricsResource);
+
+
+        // Health Check Setup
         final DbHealthCheck healthCheck =
                 new DbHealthCheck(jdbi, "Select 1");
         environment.healthChecks().register("dockDb", healthCheck);

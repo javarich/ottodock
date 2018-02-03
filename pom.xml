@@ -10,7 +10,7 @@
     </prerequisites>
 
     <groupId>com.ottodock</groupId>
-    <artifactId>coreWebApp</artifactId>
+    <artifactId>ottodock</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
