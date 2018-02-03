@@ -1,20 +1,20 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
-CREATE TABLE otto_user (
-   user_Id       INTEGER PRIMARY KEY,
-   email         VARCHAR (100),
-   password      VARCHAR (100),
-   admin         boolean DEFAULT FALSE,
-   first_name    VARCHAR (20)   NOT NULL,
-   last_name     VARCHAR (20)   NOT NULL,
-   address       VARCHAR (100),
-   address2      VARCHAR (100),
-   city          VARCHAR (100),
-   state         VARCHAR (20),
-   zip           VARCHAR (10),
-   createdTS     TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
-   modifiedTS    TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
+-- CREATE TABLE otto_user (
+--    user_Id       INTEGER PRIMARY KEY,
+--    email         VARCHAR (100),
+--    password      VARCHAR (100),
+--    admin         boolean DEFAULT FALSE,
+--    first_name    VARCHAR (20)   NOT NULL,
+--    last_name     VARCHAR (20)   NOT NULL,
+--    address       VARCHAR (100),
+--    address2      VARCHAR (100),
+--    city          VARCHAR (100),
+--    state         VARCHAR (20),
+--    zip           VARCHAR (10),
+--    createdTS     TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--    modifiedTS    TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
+-- );
 
 CREATE TABLE dock_metric (
    dock_id       INTEGER NOT NULL,
@@ -28,16 +28,16 @@ CREATE TABLE dock_metric (
 );
 
 
-CREATE SEQUENCE user_id_seq
-AS INTEGER  MINVALUE 100
-OWNED BY otto_user.user_Id;
-
-insert into otto_user (user_Id, email, password, admin, first_name, last_name)
-values (1, 'otto@ottodock.com', 'ptl', true, 'Otto','Admin');
-insert into otto_user (user_Id, email, password, admin, first_name, last_name)
-values (2, 'rich@ottodock.com', 'ptl', true, 'Rich','Admin');
-insert into otto_user (user_Id, email, password, admin, first_name, last_name)
-values (3, 'tom@ottodock.com', 'ptl', true, 'Tom','Admin');
+-- CREATE SEQUENCE user_id_seq
+-- AS INTEGER  MINVALUE 100
+-- OWNED BY otto_user.user_Id;
+--
+-- insert into otto_user (user_Id, email, password, admin, first_name, last_name)
+-- values (1, 'otto@ottodock.com', 'ptl', true, 'Otto','Admin');
+-- insert into otto_user (user_Id, email, password, admin, first_name, last_name)
+-- values (2, 'rich@ottodock.com', 'ptl', true, 'Rich','Admin');
+-- insert into otto_user (user_Id, email, password, admin, first_name, last_name)
+-- values (3, 'tom@ottodock.com', 'ptl', true, 'Tom','Admin');
 
 
 -- Lake Table
